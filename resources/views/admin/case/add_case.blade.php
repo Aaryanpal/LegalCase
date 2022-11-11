@@ -19,7 +19,7 @@
     <!------------------------------------------------ ROW 1-------------------------------------------- -->
 
 
-    <form method="post" name="add_case" id="add_case" action="{{route('case-running.store')}}" class="">
+    <form method="post" name="add_case" id="add_case" action="{{route('case-running.store')}}" enctype="multipart/form-data">
         @csrf()
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -224,7 +224,10 @@
                                 <textarea id="description" name="description" class="form-control"></textarea>
                             </div>
                         </div>
-
+                        <div class="col-md-9 col-sm-12 col-xs-12 form-group">
+                            <label for="title">Upload PDF <span class="text-danger"></span></label>
+                            <input type="file" id="file" name="file" class="form-control">
+                        </div>
 
                     </div>
                 </div>

@@ -676,6 +676,12 @@ class CaseRunningController extends Controller
             $case->cnr_number = $request->cnr_number;
             $case->remark = $request->remarks;
             $case->description = $request->description;
+            if($request->file('file')){
+                $file=$request->file('file');
+                $filename=date('YmdHi').$file->getClientOriginalName();
+                $file->move(public_path('/upload'), $filename);
+                $case['file']=$filename;
+              }
             $case->police_station = $request->police_station;
             $case->fir_number = $request->fir_number;
             $case->fir_date = ($request->fir_date != '') ? date('Y-m-d', strtotime(LogActivity::commonDateFromat($request->fir_date))) : null;

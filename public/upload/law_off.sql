@@ -48950,6 +48950,7 @@ CREATE TABLE `court_cases` (
   `registration_date` datetime NOT NULL,
   `remark` text COLLATE utf8mb4_unicode_ci,
   `description` text COLLATE utf8mb4_unicode_ci,
+  `file` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cnr_number` varchar(190) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `first_hearing_date` date DEFAULT NULL,
   `next_date` datetime DEFAULT NULL,
