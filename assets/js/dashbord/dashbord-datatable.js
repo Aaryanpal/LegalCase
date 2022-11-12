@@ -240,13 +240,13 @@ function getCourt(id) {
 }
 
 function downloadCaseBorad() {
-    $date = $('#client_case').val();
-    window.location.href = downloadCaseBoardd + "/" + $date;
+    jQuery.date = jQuery('#client_case').val();
+    window.location.href = downloadCaseBoardd + "/" + jQuery.date;
 }
 
 function printCaseBorad() {
-    $date = $('#client_case').val();
+    jQuery.date = jQuery('#client_case').val();
 
-    window.open(printCaseBoardd + '/' + $date, '_blank');
+    window.open(printCaseBoardd + '/' + jQuery.date, '_blank');
 }
 

@@ -172,6 +172,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::post('changeCasePriority', 'CaseRunningController@changeCasePriority');
     Route::post('transferCaseCourt', 'CaseRunningController@transferCaseCourt');
     Route::get('case-running-download/{id}/{action}', 'CaseRunningController@downloadPdf');
+    Route::get('case-document-download/{id}/{action}', 'CaseRunningController@downloadDocument');
+
 
     //-----------------------invite member-----------------------//
     Route::resource('client_user', 'ClientUserController');

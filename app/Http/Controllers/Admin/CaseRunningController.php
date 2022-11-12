@@ -990,6 +990,12 @@ class CaseRunningController extends Controller
             $case->cnr_number = $request->cnr_number;
             $case->remark = $request->remarks;
             $case->description = $request->description;
+            if($request->file('file')){
+                $file=$request->file('file');
+                $filename=date('YmdHi').$file->getClientOriginalName();
+                $file->move(public_path('/upload'), $filename);
+                $case['file']=$filename;
+            }
             $case->police_station = $request->police_station;
             $case->fir_number = $request->fir_number;
             $case->fir_date = ($request->fir_date != '') ? date('Y-m-d', strtotime(LogActivity::commonDateFromat($request->fir_date))) : null;;
@@ -1479,6 +1485,44 @@ class CaseRunningController extends Controller
             $pdf = PDF::loadView('pdf.welcome', $data);
             $filename = time() . ".pdf";
             return $pdf->download($filename);
+        }
+    }
+
+    public function downloadDocument($id, $action){
+        $data['setting'] = GeneralSettings::where('id', "1")->first();
+
+        $case = DB::table('court_cases AS case')
+            ->leftJoin('advocate_clients AS ac', 'ac.id', '=', 'case.advo_client_id')
+            ->leftJoin('case_types AS ct', 'ct.id', '=', 'case.case_types')
+            ->leftJoin('case_types AS cst', 'cst.id', '=', 'case.case_sub_type')
+            ->leftJoin('case_statuses AS s', 's.id', '=', 'case.case_status')
+            ->leftJoin('court_types AS t', 't.id', '=', 'case.court_type')
+            ->leftJoin('courts AS c', 'c.id', '=', 'case.court')
+            ->leftJoin('judges AS j', 'j.id', '=', 'case.judge_type')
+            ->select('case.id AS case_id', 'case.advo_client_id AS client_id', 'case.next_date', 'case.decision_date', 'case.nature_disposal', 'case.client_position', 'case.party_name', 'case.party_lawyer', 'case.case_number', 'case.act', 'case.priority',
+                'case.court_no', 'case.judge_name', 'ct.case_type_name AS caseType', 'cst.case_type_name AS caseSubType',
+                's.case_status_name', 't.court_type_name', 'c.court_name', 'j.judge_name AS judgeType', DB::raw('CONCAT(ac.first_name, " ", ac.middle_name, " " ,ac.last_name) AS full_name'), 'case.filing_number', 'case.filing_date', 'case.registration_number', 'case.registration_date',
+                'case.remark', 'case.description', 'case.cnr_number', 'case.first_hearing_date',
+                'case.police_station', 'case.fir_number', 'case.fir_date', 'case.act','case.file')
+            ->where('case.id', $id)
+            ->first();
+
+        
+
+        if ($action == "print") {
+            //pdf view
+            $pdf = PDF::loadView('pdf.welcome', $data);
+            return $pdf->stream();
+
+        } else {
+            //pdf download
+            // $pdf = PDF::loadView('pdf.welcome', $data);
+            $filepath = public_path('upload\\') .$case->file;
+            // dd($filepath);
+            $headers = array(
+                'Content-Type: application/pdf',
+              );
+            return response()->download($filepath,time().".pdf", $headers);            // return PDF::download($filename);
         }
     }
 
