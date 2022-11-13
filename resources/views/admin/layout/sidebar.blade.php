@@ -14,9 +14,9 @@
                 <li><a href="{{ route('case-running.index') }}"><i class="fa fa-gavel"></i> Case</a></li>
 
             @endif
-            @if($adminHasPermition->can(['task_list']) =="1")
+            <!-- @if($adminHasPermition->can(['task_list']) =="1")
                 <li><a href="{{ route('tasks.index') }}"><i class="fa fa-tasks"></i> Task</a></li>
-            @endif
+            @endif -->
 
 
             @if($adminHasPermition->can(['appointment_list']) =="1")
@@ -25,16 +25,18 @@
 
             @endif
             @if(\Auth::guard('admin')->user()->user_type=="Admin")
-                <li><a><i class="fa fa-users"></i> Team Members <span class="fa fa-chevron-down"></span></a>
+                <li>
+                    <!-- <a><i class="fa fa-users"></i> Team Members <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{{ url('admin/client_user') }}"> Team Member</a></li>
                         <li><a href="{{ route('role.index') }}">Role</a></li>
 
-                    </ul>
+                    </ul> -->
                 </li>
             @endif
             @if($adminHasPermition->can(['service_list']) == "1" || $adminHasPermition->can(['invoice_list'])=="1")
-                <li><a><i class="fa fa-money"></i> Income <span class="fa fa-chevron-down"></span></a>
+                <li>
+                    <!-- <a><i class="fa fa-money"></i> Income <span class="fa fa-chevron-down"></span></a> -->
                     <ul class="nav child_menu">
                         @if($adminHasPermition->can(['service_list']) == "1")
                             <li><a href="{{ url('admin/service') }}">Service</a></li>
@@ -53,7 +55,8 @@
             @endif
 
             @if($adminHasPermition->can(['expense_type_list'])=="1" || $adminHasPermition->can(['expense_list'])=="1")
-                <li><a><i class="fa fa-money"></i> Expense <span class="fa fa-chevron-down"></span></a>
+                <li>
+                    <!-- <a><i class="fa fa-money"></i> Expense <span class="fa fa-chevron-down"></span></a> -->
                     <ul class="nav child_menu">
 
                         @if($adminHasPermition->can(['expense_type_list']) =="1")
