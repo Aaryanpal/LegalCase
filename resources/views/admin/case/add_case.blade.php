@@ -228,7 +228,10 @@
                             <label for="title">Upload PDF <span class="text-danger"></span></label>
                             <input type="file" id="file" name="file" class="form-control">
                         </div>
-
+                        <div class= "col-md-9 col-sm-12 col-xs-12 form-group">
+                            <label for="money">Rupayee<span class="text-danger"></span></label>
+                            <input type= "number" id="rupay" name= "rupay" class="form-control">
+                        </div>
                     </div>
                 </div>
 

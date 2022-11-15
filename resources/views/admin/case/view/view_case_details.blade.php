@@ -89,6 +89,10 @@
                                     <td>Judge</td>
                                     <td class="fs15 fw700 text-right">{{$case->judge_name}}</td>
                                 </tr>
+                                <tr>
+                                    <td>Rupay</td>
+                                    <td class="fs15 fw700 text-right">{{$case->rupay}}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

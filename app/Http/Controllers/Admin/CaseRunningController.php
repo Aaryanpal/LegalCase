@@ -687,6 +687,8 @@ class CaseRunningController extends Controller
             $case->fir_date = ($request->fir_date != '') ? date('Y-m-d', strtotime(LogActivity::commonDateFromat($request->fir_date))) : null;
             // $case->updated_by           = "1";
             $case->updated_by = Auth::guard('admin')->user()->id;
+            $case->rupay=$request->rupay;
+            // dd( $case);
             $case->save();
 
 
@@ -789,7 +791,7 @@ class CaseRunningController extends Controller
             ->select('case.id AS case_id', 'case.advo_client_id AS client_id', 'case.next_date', 'case.decision_date', 'case.nature_disposal', 'case.client_position', 'case.party_name', 'case.party_lawyer', 'case.case_number', 'case.act', 'case.priority',
                 'case.court_no', 'case.judge_name', 'ct.case_type_name AS caseType', 'cst.case_type_name AS caseSubType',
                 's.case_status_name', 't.court_type_name', 'c.court_name', 'j.judge_name', DB::raw('CONCAT(ac.first_name, " ", ac.middle_name, " " ,ac.last_name) AS full_name'), 'case.filing_number', 'case.filing_date', 'case.registration_number', 'case.registration_date',
-                'case.remark', 'case.description', 'case.cnr_number', 'case.first_hearing_date', 'case.case_number'
+                'case.remark', 'case.description', 'case.cnr_number', 'case.first_hearing_date', 'case.case_number', 'case.rupay'
             )
             ->where('case.id', $id)
             ->first();
@@ -942,6 +944,7 @@ class CaseRunningController extends Controller
             $case->judge_type = $request->judge_type;
             $case->judge_name = $request->judge_name;
             $case->filing_number = $request->filing_number;
+            $case->rupay = $request->rupay;
             $case->filing_date = date('Y-m-d H:i:s', strtotime(LogActivity::commonDateFromat($request->filing_date)));
             $case->registration_number = $request->registration_number;
             $case->registration_date = date('Y-m-d H:i:s', strtotime(LogActivity::commonDateFromat($request->registration_date)));
@@ -1435,7 +1438,7 @@ class CaseRunningController extends Controller
                 'case.court_no', 'case.judge_name', 'ct.case_type_name AS caseType', 'cst.case_type_name AS caseSubType',
                 's.case_status_name', 't.court_type_name', 'c.court_name', 'j.judge_name AS judgeType', DB::raw('CONCAT(ac.first_name, " ", ac.middle_name, " " ,ac.last_name) AS full_name'), 'case.filing_number', 'case.filing_date', 'case.registration_number', 'case.registration_date',
                 'case.remark', 'case.description', 'case.cnr_number', 'case.first_hearing_date',
-                'case.police_station', 'case.fir_number', 'case.fir_date', 'case.act')
+                'case.police_station', 'case.fir_number', 'case.fir_date', 'case.act', 'case.rupay')
             ->where('case.id', $id)
             ->first();
         $data['associatedName'] = Admin::select('associated_name')->where('id', '1')->first();
@@ -1482,6 +1485,7 @@ class CaseRunningController extends Controller
         } else {
 
             //pdf download
+            // dd($data);
             $pdf = PDF::loadView('pdf.welcome', $data);
             $filename = time() . ".pdf";
             return $pdf->download($filename);

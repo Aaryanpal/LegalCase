@@ -103,7 +103,11 @@ font-style:bold;
 <td class="heading3" width="40%" style="text-align:left;border-left: none;border-right: none;">: @if(isset($case->cnr_number) && !empty($case->cnr_number)) {{$case->cnr_number ?? ''}} @endif</td>
 <td class="heading3" width="30%" style="text-align:left;border-left: none;border-right: none;"></td>
 </tr>
-
+<tr>
+<td class="heading3 " width="30%" style="text-align:left;border-right: none !important;"><b> Amount</b> </td>
+<td class="heading3" width="40%" style="text-align:left;border-left: none;border-right: none;">: @if(isset($case->rupay) && !empty($case->rupay)) {{$case->rupay ?? ''}} @endif</td>
+<td class="heading3" width="30%" style="text-align:left;border-left: none;border-right: none;"></td>
+</tr>
 
 </table>
 
